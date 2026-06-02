@@ -1,0 +1,16 @@
+以下の処理をSubAgentとSkillsを作成して実行してください
+
+これから私は AI 開発の成果物をスクリーンショットした画像をまとめたポートフォリオサイトを掲載したいと思います。
+テーマに合った参考サイトを見つけ出して、構造を提案してください
+実績画像はこちらです
+/Users/hkonn/yunico_claude/no7-portfolio/image
+
+デザインは以下のyamlに従う
+/Users/hkonn/yunico_claude/no7-portfolio/quiet_minimal_editorial.yaml
+
+まずはSubAgentとSkillsの概要を説明してください。デプロイはそのあとでお願いします。
+
+
+
+本格的に実装して、github pagesでデプロイしてください
+リポジトリはno7-portfolio-v2としてください。
