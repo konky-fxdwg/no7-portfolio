@@ -1,0 +1,94 @@
+design_prompt:
+  style_name: "quiet_minimal_editorial"
+
+  mood:
+    - minimalist
+    - calm
+    - refined
+    - editorial
+    - airy
+    - contemporary
+    - understated
+    - gallery_like
+
+  color_palette:
+    base:
+      - warm_white: "#F7F7F4"
+      - soft_light_gray: "#EDEDEA"
+      - pure_white: "#FFFFFF"
+    text:
+      - charcoal_black: "#111111"
+      - muted_gray: "#6F6F6F"
+    accent:
+      - use_sparingly: true
+      - recommended: "single muted accent color only"
+      - examples:
+          - soft_ochre
+          - muted_sage
+          - warm_beige
+          - dusty_blue
+    avoid:
+      - high_saturation_colors
+      - strong_gradients
+      - decorative_multicolor_palette
+
+  typography:
+    direction: "clean sans-serif"
+    heading:
+      weight: "bold"
+      scale: "large"
+      tracking: "slightly tight or neutral"
+      impression: "strong but not decorative"
+    body:
+      weight: "regular"
+      size: "small to medium"
+      line_height: "generous"
+      impression: "quiet and readable"
+    labels:
+      size: "small"
+      weight: "medium"
+      style: "compact and functional"
+
+  layout_feeling:
+    spacing: "generous whitespace"
+    density: "low to medium"
+    alignment: "grid-based"
+    composition: "asymmetrical but controlled"
+    rhythm: "alternating large and small visual blocks"
+    hierarchy: "clear contrast between large headings and compact details"
+
+  visual_elements:
+    image_treatment:
+      tone: "soft, neutral, desaturated"
+      brightness: "high-key"
+      contrast: "low to medium"
+      framing: "clean margins, object-focused"
+    cards:
+      background: "white or near-white"
+      border: "none or very subtle"
+      radius: "small to medium"
+      shadow: "soft, minimal, low-opacity"
+    buttons:
+      shape: "pill or rounded"
+      style: "monochrome"
+      emphasis: "subtle"
+    icons:
+      style: "simple line or minimal solid"
+      size: "small"
+      usage: "functional only"
+
+  interaction_feeling:
+    motion:
+      - subtle hover
+      - soft fade
+      - gentle scale
+    avoid:
+      - flashy animation
+      - strong parallax
+      - excessive motion
+
+  overall_instruction: >
+    Create a calm, minimalist, editorial-style website design with abundant whitespace,
+    monochrome typography, soft neutral backgrounds, restrained accents, and a gallery-like
+    atmosphere. The design should feel refined, quiet, modern, and reusable across different
+    industries without relying on specific copy, layout, or content structure.

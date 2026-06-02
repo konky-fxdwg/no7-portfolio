@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="AIで作る課題解決ツールのポートフォリオ。JavaScript・Gemini APIを活用した実用的なプロダクト開発の実績を掲載しています。" />
+  <title>Yunico — AI Tools Portfolio</title>
+
+  <style>
+    /* ─────────────────────────────────────
+       Reset & Custom Properties
+    ───────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:         #F7F7F4;
+      --surface:    #FFFFFF;
+      --gray-lt:    #EDEDEA;
+      --gray-md:    #D8D8D4;
+      --text:       #111111;
+      --muted:      #6F6F6F;
+      --accent:     #7A93A8;   /* dusty blue — used sparingly */
+      --border:     rgba(0, 0, 0, .07);
+      --shadow-sm:  0 1px 4px rgba(0,0,0,.06), 0 0 0 1px rgba(0,0,0,.05);
+      --shadow-md:  0 8px 32px rgba(0,0,0,.08), 0 0 0 1px rgba(0,0,0,.07);
+      --radius:     10px;
+      --max-w:      1120px;
+      --pad-x:      7%;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Helvetica Neue', Arial, 'Hiragino Kaku Gothic ProN', 'Yu Gothic', sans-serif;
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    img { display: block; max-width: 100%; }
+    a   { color: inherit; text-decoration: none; }
+
+    /* ─────────────────────────────────────
+       NAV
+    ───────────────────────────────────── */
+    .nav {
+      position: sticky;
+      top: 0;
+      z-index: 200;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.25rem var(--pad-x);
+      background: rgba(247, 247, 244, .88);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav__logo {
+      font-size: .78rem;
+      font-weight: 800;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      color: var(--text);
+    }
+
+    .nav__links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+
+    .nav__links a {
+      font-size: .72rem;
+      font-weight: 500;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--muted);
+      transition: color .2s;
+    }
+    .nav__links a:hover { color: var(--text); }
+
+    /* ─────────────────────────────────────
+       HERO
+    ───────────────────────────────────── */
+    .hero {
+      padding: 8rem var(--pad-x) 6.5rem;
+      max-width: var(--max-w);
+      margin: 0 auto;
+    }
+
+    .hero__eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: .5rem;
+      font-size: .7rem;
+      font-weight: 600;
+      letter-spacing: .22em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 1.6rem;
+    }
+    .hero__eyebrow::before {
+      content: '';
+      display: block;
+      width: 18px;
+      height: 1px;
+      background: var(--accent);
+    }
+
+    .hero__heading {
+      font-size: clamp(2.6rem, 5.5vw, 4.4rem);
+      font-weight: 800;
+      letter-spacing: -.03em;
+      line-height: 1.08;
+      color: var(--text);
+      margin-bottom: 1.5rem;
+    }
+
+    .hero__sub {
+      font-size: .98rem;
+      color: var(--muted);
+      max-width: 440px;
+      line-height: 1.85;
+      margin-bottom: 2.6rem;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: .5rem;
+      padding: .65rem 1.5rem;
+      border-radius: 99px;
+      border: 1.5px solid var(--text);
+      font-size: .74rem;
+      font-weight: 700;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--text);
+      background: transparent;
+      cursor: pointer;
+      transition: background .22s, color .22s;
+    }
+    .btn:hover {
+      background: var(--text);
+      color: var(--bg);
+    }
+    .btn svg { transition: transform .22s; }
+    .btn:hover svg { transform: translateX(3px); }
+
+    /* ─────────────────────────────────────
+       RULE
+    ───────────────────────────────────── */
+    .rule {
+      max-width: var(--max-w);
+      margin: 0 auto;
+      padding: 0 var(--pad-x);
+    }
+    .rule hr {
+      border: none;
+      border-top: 1px solid var(--border);
+    }
+
+    /* ─────────────────────────────────────
+       WORKS
+    ───────────────────────────────────── */
+    .works {
+      padding: 5rem var(--pad-x) 7rem;
+      max-width: var(--max-w);
+      margin: 0 auto;
+    }
+
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 3rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .section-header__label {
+      font-size: .68rem;
+      font-weight: 700;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+    .section-header__count {
+      font-size: .68rem;
+      color: var(--muted);
+      letter-spacing: .08em;
+    }
+
+    /* cards */
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 2rem;
+    }
+
+    @media (max-width: 780px) {
+      .cards { grid-template-columns: 1fr; }
+    }
+
+    .card {
+      background: var(--surface);
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: var(--shadow-sm);
+      transition: box-shadow .3s cubic-bezier(.25,.46,.45,.94),
+                  transform  .3s cubic-bezier(.25,.46,.45,.94);
+      will-change: transform;
+    }
+    .card:hover {
+      box-shadow: var(--shadow-md);
+      transform: translateY(-5px);
+    }
+
+    /* browser chrome mockup */
+    .card__chrome {
+      background: var(--gray-lt);
+      padding: .75rem .75rem 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .chrome__dots {
+      display: flex;
+      gap: .38rem;
+      margin-bottom: .5rem;
+    }
+    .chrome__dot {
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: var(--gray-md);
+    }
+    .card__screenshot {
+      width: 100%;
+      border-radius: 4px 4px 0 0;
+      object-fit: cover;
+      aspect-ratio: 16 / 9;
+    }
+
+    /* card body */
+    .card__body {
+      padding: 1.6rem 1.8rem 1.9rem;
+    }
+    .card__index {
+      font-size: .65rem;
+      font-weight: 700;
+      letter-spacing: .18em;
+      color: var(--accent);
+      text-transform: uppercase;
+      margin-bottom: .55rem;
+    }
+    .card__title {
+      font-size: 1.02rem;
+      font-weight: 700;
+      letter-spacing: -.015em;
+      line-height: 1.35;
+      margin-bottom: .6rem;
+    }
+    .card__desc {
+      font-size: .82rem;
+      color: var(--muted);
+      line-height: 1.75;
+      margin-bottom: 1.3rem;
+    }
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: .35rem;
+    }
+    .tag {
+      padding: .22rem .65rem;
+      border-radius: 5px;
+      background: var(--gray-lt);
+      font-size: .67rem;
+      font-weight: 500;
+      color: var(--muted);
+      letter-spacing: .04em;
+    }
+
+    /* ─────────────────────────────────────
+       ABOUT (subtle strip)
+    ───────────────────────────────────── */
+    .about {
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+    .about__inner {
+      max-width: var(--max-w);
+      margin: 0 auto;
+      padding: 4.5rem var(--pad-x);
+      display: grid;
+      grid-template-columns: 1fr 2fr;
+      gap: 3rem;
+      align-items: start;
+    }
+    @media (max-width: 640px) {
+      .about__inner { grid-template-columns: 1fr; gap: 1.5rem; }
+    }
+    .about__label {
+      font-size: .68rem;
+      font-weight: 700;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      color: var(--muted);
+      padding-top: .2rem;
+    }
+    .about__text {
+      font-size: .92rem;
+      color: var(--muted);
+      line-height: 1.85;
+      max-width: 580px;
+    }
+    .about__text strong {
+      color: var(--text);
+      font-weight: 600;
+    }
+
+    /* ─────────────────────────────────────
+       FOOTER
+    ───────────────────────────────────── */
+    .footer {
+      max-width: var(--max-w);
+      margin: 0 auto;
+      padding: 2.5rem var(--pad-x);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: .72rem;
+      color: var(--muted);
+      letter-spacing: .05em;
+    }
+    @media (max-width: 480px) {
+      .footer { flex-direction: column; gap: .8rem; text-align: center; }
+    }
+
+    /* ─────────────────────────────────────
+       Scroll-in animation
+    ───────────────────────────────────── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(18px);
+      transition: opacity .55s cubic-bezier(.25,.46,.45,.94),
+                  transform .55s cubic-bezier(.25,.46,.45,.94);
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: none;
+    }
+    .reveal[data-delay="1"] { transition-delay: .1s; }
+    .reveal[data-delay="2"] { transition-delay: .2s; }
+  </style>
+</head>
+<body>
+
+  <!-- NAV ────────────────────────────────── -->
+  <header class="nav" role="banner">
+    <span class="nav__logo">Yunico</span>
+    <nav aria-label="Main navigation">
+      <ul class="nav__links">
+        <li><a href="#works">Works</a></li>
+        <li><a href="#about">About</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- HERO ───────────────────────────────── -->
+  <main>
+    <section class="hero" aria-label="Introduction">
+      <p class="hero__eyebrow">AI Development Portfolio</p>
+      <h1 class="hero__heading">AIで作る、<br>課題解決ツール。</h1>
+      <p class="hero__sub">
+        日常業務の非効率を AI と自動化で解消するプロダクトを開発しています。
+        シンプルで実用的なツールを、コードで形にしています。
+      </p>
+      <a href="#works" class="btn">
+        実績を見る
+        <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M2 6h8M6 2l4 4-4 4"/>
+        </svg>
+      </a>
+    </section>
+
+    <!-- WORKS ──────────────────────────────── -->
+    <section class="works" id="works" aria-label="Works">
+      <div class="section-header">
+        <span class="section-header__label">Works</span>
+        <span class="section-header__count">2 Projects</span>
+      </div>
+
+      <div class="cards">
+
+        <!-- Card 1 -->
+        <article class="card reveal" data-delay="1">
+          <div class="card__chrome" aria-hidden="true">
+            <div class="chrome__dots">
+              <span class="chrome__dot"></span>
+              <span class="chrome__dot"></span>
+              <span class="chrome__dot"></span>
+            </div>
+            <img
+              class="card__screenshot"
+              src="image/スクリーンショット 2026-06-02 14.56.44.png"
+              alt="アイコンカラー一括変更ツールのスクリーンショット"
+              loading="lazy"
+            />
+          </div>
+          <div class="card__body">
+            <p class="card__index">01</p>
+            <h2 class="card__title">アイコンカラー一括変更ツール</h2>
+            <p class="card__desc">
+              複数のアイコン画像をドラッグ&amp;ドロップするだけで、プリセット or
+              カスタムカラーに一括変換。余白の自動トリミング機能で、書き出し後の微調整も不要。
+            </p>
+            <div class="tags" aria-label="使用技術">
+              <span class="tag">JavaScript</span>
+              <span class="tag">Canvas API</span>
+              <span class="tag">File API</span>
+            </div>
+          </div>
+        </article>
+
+        <!-- Card 2 -->
+        <article class="card reveal" data-delay="2">
+          <div class="card__chrome" aria-hidden="true">
+            <div class="chrome__dots">
+              <span class="chrome__dot"></span>
+              <span class="chrome__dot"></span>
+              <span class="chrome__dot"></span>
+            </div>
+            <img
+              class="card__screenshot"
+              src="image/スクリーンショット 2026-06-02 14.57.38.png"
+              alt="動画マニュアル作成ツールのスクリーンショット"
+              loading="lazy"
+            />
+          </div>
+          <div class="card__body">
+            <p class="card__index">02</p>
+            <h2 class="card__title">動画マニュアル作成ツール</h2>
+            <p class="card__desc">
+              Gemini AI の出力テキストから手順マニュアルを自動生成。動画とスクリーンショットを
+              組み合わせて、そのまま PDF として書き出し・印刷できる。
+            </p>
+            <div class="tags" aria-label="使用技術">
+              <span class="tag">Gemini API</span>
+              <span class="tag">JavaScript</span>
+              <span class="tag">PDF Export</span>
+            </div>
+          </div>
+        </article>
+
+      </div>
+    </section>
+  </main>
+
+  <!-- ABOUT ──────────────────────────────── -->
+  <section class="about" id="about" aria-label="About">
+    <div class="about__inner">
+      <p class="about__label">About</p>
+      <p class="about__text">
+        <strong>業務の「面倒」を、ツールで解消する</strong>ことを軸に開発しています。
+        AI API を活用した自動化・生成ツールを中心に、JavaScript / Canvas / PDF など
+        ブラウザネイティブな技術を組み合わせてプロダクトを構築しています。
+      </p>
+    </div>
+  </section>
+
+  <!-- FOOTER ─────────────────────────────── -->
+  <footer class="footer" role="contentinfo">
+    <span>© 2026 Yunico</span>
+    <span>AI Tools Portfolio</span>
+  </footer>
+
+  <script>
+    // Scroll-reveal
+    const revealEls = document.querySelectorAll('.reveal');
+    const io = new IntersectionObserver(
+      (entries) => entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); } }),
+      { threshold: 0.12 }
+    );
+    revealEls.forEach(el => io.observe(el));
+  </script>
+
+</body>
+</html>
