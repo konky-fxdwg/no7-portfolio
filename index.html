@@ -158,19 +158,6 @@
     .btn:hover svg { transform: translateX(3px); }
 
     /* ─────────────────────────────────────
-       RULE
-    ───────────────────────────────────── */
-    .rule {
-      max-width: var(--max-w);
-      margin: 0 auto;
-      padding: 0 var(--pad-x);
-    }
-    .rule hr {
-      border: none;
-      border-top: 1px solid var(--border);
-    }
-
-    /* ─────────────────────────────────────
        WORKS
     ───────────────────────────────────── */
     .works {
@@ -218,11 +205,11 @@
       box-shadow: var(--shadow-sm);
       transition: box-shadow .3s cubic-bezier(.25,.46,.45,.94),
                   transform  .3s cubic-bezier(.25,.46,.45,.94);
-      will-change: transform;
     }
     .card:hover {
       box-shadow: var(--shadow-md);
       transform: translateY(-5px);
+      will-change: transform;
     }
 
     /* browser chrome mockup */
@@ -335,15 +322,9 @@
       max-width: var(--max-w);
       margin: 0 auto;
       padding: 2.5rem var(--pad-x);
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
       font-size: .72rem;
       color: var(--muted);
       letter-spacing: .05em;
-    }
-    @media (max-width: 480px) {
-      .footer { flex-direction: column; gap: .8rem; text-align: center; }
     }
 
     /* ─────────────────────────────────────
@@ -361,6 +342,24 @@
     }
     .reveal[data-delay="1"] { transition-delay: .1s; }
     .reveal[data-delay="2"] { transition-delay: .2s; }
+
+    /* focus visible */
+    .btn:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 3px;
+    }
+
+    /* prefers-reduced-motion */
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      .reveal {
+        opacity: 1;
+        transform: none;
+        transition: none;
+      }
+      .card { transition: none; }
+      .btn svg { transition: none; }
+    }
   </style>
 </head>
 <body>
@@ -372,6 +371,7 @@
       <ul class="nav__links">
         <li><a href="#works">Works</a></li>
         <li><a href="#about">About</a></li>
+        <li><a href="#contact">Contact</a></li>
       </ul>
     </nav>
   </header>
@@ -387,7 +387,7 @@
       </p>
       <a href="#works" class="btn">
         実績を見る
-        <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+        <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
           <path d="M2 6h8M6 2l4 4-4 4"/>
         </svg>
       </a>
