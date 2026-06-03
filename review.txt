@@ -1,0 +1,13 @@
+以下の処理をタスクごとにレビュー観点で項目を洗い出してください
+※項目の洗い出し以外の作業は進めないでください。
+
+これから私は AI 開発の成果物をスクリーンショットした画像をまとめた
+ポートフォリオサイトを掲載したいと思います。
+テーマに合った参考サイトを見つけ出して、構造を提案してください
+実績画像はこちらです
+/Users/hkonn/yunico_claude/no7-portfolio/image
+
+デザインは以下のyamlに従う
+/Users/hkonn/yunico_claude/no7-portfolio/quiet_minimal_editorial.yaml
+
+本格的に実装して、github pagesでデプロイしてください
